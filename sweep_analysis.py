@@ -1,54 +1,11 @@
 """
 exec(open("sweep_analysis.py").read())
-python sweep_analysis.py -p -sp -srd -d 5 -r 3
-python sweep_analysis.py -p -sp -srd -snf -sn 5200 -ss 65000 -d 5 -r 1
-python sweep_analysis.py -sp -srd -snf -ps -pss -ss 75000 -d 2 -r 1
-python sweep_analysis.py -sp -srd -snf -ps -pss -sn 7500 -ss 67500 -d 6 -r 5
-python sweep_analysis.py -p -sp -srd -snf -ss 120000 -sn 20000 -x2m -d 1 
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-Created on Thu Dec 22 08:48:30 2022
 
-@author: gregg
+Example commands:
 
-commands for run 5:
-python sweep_analysis.py -p -sp -srd -snf -sn 5200 -ss 62500 -d 5 -r 1
-python sweep_analysis.py -p -sp -srd -snf -sn 5200 -ss 62500 -d 5 -r 2 -tel 0
-python sweep_analysis.py -p -sp -srd -snf -sn 5200 -ss 62500 -d 5 -r 3
-python sweep_analysis.py -p -sp -srd -snf -sn 5200 -ss 62500 -d 5 -r 4 -tel 3
-python sweep_analysis.py -p -sp -srd -snf -sn 5200 -ss 62500 -d 5 -r 4 -tel 1 2 3
-python sweep_analysis.py -p -sp -srd -snf -sn 5200 -ss 62500 -d 5 -r 5 -tel 0
+python sweep_analysis.py -p -sp -srd -d 1 -r 1
 
-python sweep_analysis.py -sp -srd -snf -sn 5200 -ss 62500 -d 5 -r 4 -ps -pss
-
-commands for run 7:
-python sweep_analysis.py -p -sp -srd -d 7 -r 1 -tel 5 6 11 17
-python sweep_analysis.py -p -sp -srd -d 7 -r 2 -tel 0
-python sweep_analysis.py -p -sp -srd -d 7 -r 3 -tel 2
-python sweep_analysis.py -p -sp -srd -d 7 -r 4 -tel 2 4 5
-python sweep_analysis.py -p -sp -srd -d 7 -r 4 -tel 0 1 2 3 4 5 6
-python sweep_analysis.py -p -sp -srd -d 7 -r 5
-
-commands for run 9:
-python sweep_analysis.py -p -sp -srd -d 9 -r 1 -tel 0 1 3 19 20 21 22 23 25 26 27 38 39 40 41 42 44 45 46 48 49 50 51 58 59 60 61 62 63 64 65 66 67
-python sweep_analysis.py -p -sp -srd -d 9 -r 2 -tel 0 1 
-python sweep_analysis.py -p -sp -srd -d 9 -r 3 -tel 3 4 5 6 7 8 9 11 15 16 17 26 41 42 48 51 52 56 59 72 73 74 81 83
-python sweep_analysis.py -p -sp -srd -d 9 -r 4 -tel 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 19 20 21 22 29 32 50 64 79 82 84 86 97
-python sweep_analysis.py -p -sp -srd -d 9 -r 5 -tel 0
-
-python sweep_analysis.py -sp -srd -snf -sn 5200 -ss 69800 -d 9 -r 2 -ps -pss
-
-commands for run 10:
-python sweep_analysis.py -p -sp -srd -d 10 -r 1 -tel 0 1 2 3 4 5 6 7 8 9 10 11 14 15 16 17 18 19 20 22 28 29 31 32 33 36 37 38 39 40 41 42 43 44 45 46 47 50 51 52 53 54 62 64 66 69 70 71 72 73 75 76 77 78 79 80 81 82 83 84 85 86 87 88 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 106 109 110 111 114 115 118 119 120 121 122 123 124 125 126 127 128 129 130 132 133 134 139 140 141 142 144 146 147 148 149 150 152 153 154 155 156 160 163 166 168 172 177 180 181 182 184 186 188 189 192 197 199
-python sweep_analysis.py -p -sp -srd -d 10 -r 2 -tel 0 1 4 
-python sweep_analysis.py -p -sp -srd -d 10 -r 3 -tel 1 3 4 5 6 7 8 9 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 29 30 32 33 37 46 47 49 50 53 54 58 61 63 65 67 68 69 74 75 83 84 85 87 92 93 94 95 96 99 100 101 102 103 104 105 109 110 111 112 117 118 119 122 126 132 136 137 143 144 145 146 147 148 149 152 158 162 163 165 166 178 180 183 188 189 190 194 195 196 198
-python sweep_analysis.py -p -sp -srd -d 10 -r 4 -tel 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 53 54 55 56 57 58 60 61 62 63 64 65 66 67 68 69 70 71 72 74 76 78 79 81 82 83 84 85 86 87 89 90 91 92 94 95 97 98 100 101 104 105 106 107 109 110 112 113 114 115 116 118 119 120 121 122 123 125 126 128 129 130 131 132 133 134 136 137 138 139 140 142 143 144 147 149 150 151 156 157 158 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 178 179 180 181 183 184 185 186 190 191 192 193 194 196 197 198 199
-
-commands for run 12:
-python sweep_analysis.py -p -sp -srd -d 12 -r 1 -tel 6 7 8 9
-python sweep_analysis.py -p -sp -srd -d 12 -r 2 -tel 5
-
-python sweep_analysis.py -p -sp -srd -snf -sn 5000 -ss 20000 -d 45 -r 1
+python sweep_analysis.py -p -sp -srd -snf -sn 5000 -ss 20000 -d 1 -r 1
 """
 
 import numpy as np
@@ -65,7 +22,7 @@ import os
 import h5py
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-d','--data_folder_num',default=51,type=int) #22
+parser.add_argument('-d','--data_folder_num',default=1,type=int) #22
 parser.add_argument('-r','--run_num',default=1,type=int)
 parser.add_argument('-p','--plot_block',action='store_true')
 parser.add_argument('-snf','--custom_samp_num_flag',action='store_true')
