@@ -14,7 +14,7 @@ import random
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-rl','--min_run_index',default=1,type=int)
+parser.add_argument('-rl','--min_run_index',default=1,type=int) 
 parser.add_argument('-ru','--max_run_index',default=13,type=int)
 parser.add_argument('-d','--data_folder_num',default=1,type=int)
 parser.add_argument('-ts','--timestep',default=30,type=int)
@@ -33,60 +33,60 @@ timeoffset2 = int(args.timeoffset2)
 A2_superblock_size = int(args.a2_superblock_size)
 run_flag = bool(args.run_flag)
 
-#A2_block_list = list(range(0,10,A2_superblock_size))
-num_t_steps = 10
-t_shift_superblock_size = 10
+# Nomenclature: a block is a set of amplification factor values or time shift values that are saved in the same file. A superblock is the number of blocks that is run in each terminal tab (tabs are run in parallel)
+num_t_steps = 10 # number of time samplings
+t_shift_superblock_size = 10 # number of time steps in a superblock
 
-phi1 = 0.0
-max_t_shift = 1000.0
-frequency = 15.625
-af_list = '0.1 0.5 1.0 1.5 2.0 3.0 4.0 5.0'
-#A2_block_list = list(range(0,8,A2_superblock_size))
-spect_num = 100000
-save_verbosity_index = 500
-signal_mag = 0.2
-input_filename = '../weak_signals/sensor_data/prepped_data/flights1_mod.csv'
-pulse_filename = '../weak_signals/sensor_data/prepped_data/pulse1.csv'
-total_t = 500.0
-x10 = 0.028998442540967034
-z10 = -84.42093768595821
-x20 = -0.169103092562322
-z20 = 5.6747251829963075
-x30 = 0.10030426818849783
-z30 = 77.7816827284428
-t_sig_start = 0.0
-noise_flag = True
-gamma1 = 0.7
-gamma2 = 1.1
-alpha1 = 1e4
-alpha2 = 1e4
-beta1 = 0
-C1 = 1.0
-kappa12 = 300
-A1 = 1000.0
-sig_repeat_timestep_factor = 1
-pulse_width = 1.0/(6.3*15.0)
-pulse_center = 40.0
-sensor_increment = 0
-phi3 = np.pi
-pulse_type = 0
-del_t_ff = 0.004
-t_offset1 = 0
-t_offset2 = 0
-t_offset3 = 0
-pulse1_type = 1
-pulse1_width = 10/(2*np.sqrt(2*np.log(2)))
-pulse1_center = 300
-pulse2_height = 10
-pulse2_type = 1
-pulse2_width = 5/(2*np.sqrt(2*np.log(2)))
-pulse2_center = 300
-pulse3_height = 0
-pulse3_type = 1
-pulse3_width = 10/(2*np.sqrt(2*np.log(2)))
-pulse3_center = 30
-abs_pulse_location_flag = 0
-snap_flag = 1
+phi1 = 0.0 # phase of the forcing sinusoid on oscillator 1
+max_t_shift = 1000.0 # maximum time shift for time samplings. The shift for each time sampling is max_t_shift/num_t_steps
+frequency = 15.625 # Frequency of the forcing sinusoids (Hz)
+af_list = '0.1 0.5 1.0 1.5 2.0 3.0 4.0 5.0' # List of amplification factors to use. Entries separated by spaces.
+spect_num = 100000 # number of data points to include when calculating the spectra to use in the detection coefficient calculation
+save_verbosity_index = 500 # number between 0 and 1000 that determines how much data is saved with each run. Refer to run_all_sweeps.py to see what saves with each verbosity index level.
+signal_mag = 0.2 # sinusoidal signal amplitude applied to oscillator 2
+input_filename = '../weak_signals/sensor_data/prepped_data/flights1_mod.csv' # string to specify csv file for noise
+pulse_filename = '../weak_signals/sensor_data/prepped_data/pulse1.csv' # string to specify file for pulse time series (optional)
+total_t = 500.0 # Total time to run simulation, for each sampling
+x10 = 0.028998442540967034 # initial condition, oscillator 1
+z10 = -84.42093768595821 # initial condition, time derivative of oscillator 1
+x20 = -0.169103092562322 # initial condition, oscillator 2
+z20 = 5.6747251829963075# initial condition, time derivative of oscillator 2
+x30 = 0.10030426818849783 # initial condition, oscillator 3
+z30 = 77.7816827284428# initial condition, time derivative of oscillator 3
+t_sig_start = 0.0 # If >0, the sinusoidal signal will start at this time relative to the beginning of the sampling
+noise_flag = True # Whether or not to include noise
+gamma1 = 0.7 # damping term on oscillator 1, gamma3 is set equal to gamma1
+gamma2 = 1.1 # damping term on oscillator 2
+alpha1 = 1e4 # magnitude of sinusoidal term in equation for oscillator 1. The corresponding term in oscillator 3 is set equal to this.
+alpha2 = 1e4 # magnitude of sinusoidal term in equation for oscillator 2.
+beta1 = 0 # magnitude of the cubic term in oscillator 1. This term is set equal to this for all oscillators. 
+C1 = 1.0 # Constant term in the forcing function (set equally for all oscillators)
+kappa12 = 300 # coupling term between oscillators 1 and 2 (set equal for term between oscillators 2 and 3)
+A1 = 1000.0 # Amplitude of forcing sinusoid on oscillator 1 (set equal for oscillator 3)
+sig_repeat_timestep_factor = 1 # rarely used feature. If >1, overrides frequency for signal on oscillator 2, giving it a frequency with a period of this many time steps.
+sensor_increment = 0 # If >0, switches to a different column in the input noise file for each time sampling (name assumes columns represent sensors)
+phi3 = np.pi # phase of forcing sinusoid on oscillator 3
+del_t_ff = 0.004 # time step for noise data (ff stands for forcing function)
+Cff1 = 0 # Constant multiplier for noise on oscillator 1 (normally zero)
+Cff2 = 1 # Constant multiplier for noise on oscillator 2 (normally one)
+Cff3 = 0 # Constant multiplier for noise on oscillator 3 (normally zero)
+t_offset1 = 0 # If >0, time starts at this location in the noise file for noise on oscillator 1.
+t_offset2 = 0 # If >0, time starts at this location in the noise file for noise on oscillator 2.
+t_offset3 = 0 # If >0, time starts at this location in the noise file for noise on oscillator 3.
+pulse1_height = 0 # amplitude of pulse to apply to oscillator 1. Normally 0. Generally, a pulse is only applied to oscillator 2.
+pulse1_type = 1 # index in range 0-5 to choose the type of pulse to apply to oscillator 1. 0 = Gaussian pulse. 1-3 = mathematical functions intended to mimic magnetic pulses (see run_all_sweeps.py). 4 = wave packet, namely sinusoid*Gaussian pulse. 5 = load pulse from file. 
+pulse1_width = 10/(2*np.sqrt(2*np.log(2))) # pulse width on oscillator 1. If Gaussian, this is sigma (standard deviation). If loading a pulse from a file, this is ignored.
+pulse1_center = 300 # Time to apply pulse to oscillator 1 (center point of pulse).
+pulse2_height = 10 # amplitude of pulse to apply to oscillator 2. 
+pulse2_type = 1 # index in range 0-5 to choose the type of pulse to apply to oscillator 2. 0 = Gaussian pulse. 1-3 = mathematical functions intended to mimic magnetic pulses (see run_all_sweeps.py). 4 = wave packet, namely sinusoid*Gaussian pulse. 5 = load pulse from file. 
+pulse2_width = 5/(2*np.sqrt(2*np.log(2))) # pulse width on oscillator 2. If Gaussian, this is sigma (standard deviation). If loading a pulse from a file, this is ignored.
+pulse2_center = 300 # Time to apply pulse to oscillator 2 (center point of pulse).
+pulse3_height = 0 # amplitude of pulse to apply to oscillator 3. Normally 0. Generally, a pulse is only applied to oscillator 2.
+pulse3_type = 1 # index in range 0-5 to choose the type of pulse to apply to oscillator 3. 0 = Gaussian pulse. 1-3 = mathematical functions intended to mimic magnetic pulses (see run_all_sweeps.py). 4 = wave packet, namely sinusoid*Gaussian pulse. 5 = load pulse from file. 
+pulse3_width = 10/(2*np.sqrt(2*np.log(2))) # pulse width on oscillator 3. If Gaussian, this is sigma (standard deviation). If loading a pulse from a file, this is ignored.
+pulse3_center = 30 # Time to apply pulse to oscillator 3 (center point of pulse).
+abs_pulse_location_flag = 0 # If 0, one pulse is applied for every time sampling. The timing of pulse*_center is relative to the beginning of the sampling. If 1, one pulse is applied for all time. The timing of pulse*_center is relative to the beginning of the noise file.
+snap_flag = 1 # If 1, the beginning of each time sampling will snap to the nearest multiple of 1/frequency. This guaruntees the phase remains the same between samplings.
 
 if data_folder_num == 1:
     input_filename = './Gaussian_noise_4-8-26.csv'
