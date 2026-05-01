@@ -33,7 +33,8 @@ timeoffset2 = int(args.timeoffset2)
 A2_superblock_size = int(args.a2_superblock_size)
 run_flag = bool(args.run_flag)
 
-# Nomenclature: a block is a set of amplification factor values or time shift values that are saved in the same file. A superblock is the number of blocks that is run in each terminal tab (tabs are run in parallel)
+# Nomenclature: a block is a set of amplification factor values that are saved in the same file. A superblock is the number of blocks that is run in each terminal tab (tabs are run in parallel)
+# results are saved in pkl files with names of the format: sweep_run[run number]_amp_factor_block_[amp factor block number]_[amp factor index within block]_t_shift_block_[t shift index].pkl
 num_t_steps = 10 # number of time samplings
 t_shift_superblock_size = 10 # number of time steps in a superblock
 
