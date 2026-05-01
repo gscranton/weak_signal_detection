@@ -14,14 +14,15 @@ import random
 import argparse
 
 parser = argparse.ArgumentParser()
+# run index is the number of the column in the noise data file. 
 parser.add_argument('-rl','--min_run_index',default=1,type=int) 
 parser.add_argument('-ru','--max_run_index',default=13,type=int)
-parser.add_argument('-d','--data_folder_num',default=1,type=int)
-parser.add_argument('-ts','--timestep',default=30,type=int)
-parser.add_argument('-t1','--timeoffset1',default=0,type=int)
-parser.add_argument('-t2','--timeoffset2',default=0,type=int)
-parser.add_argument('-as','--a2_superblock_size',default=1,type=int)
-parser.add_argument('-rf','--run_flag',default=1,type=int)
+parser.add_argument('-d','--data_folder_num',default=1,type=int) # Data folder num is essentially the "title" for this parameter set
+parser.add_argument('-ts','--timestep',default=30,type=int) # Wait time between adjacent run commands in different tabs (time is spaced out so that not all save commands execute at once, for memory management)
+parser.add_argument('-t1','--timeoffset1',default=0,type=int) # If nonzero, add wait time before set of run commands without signal
+parser.add_argument('-t2','--timeoffset2',default=0,type=int) # If nonzero, add wait time before set of run commands with signal
+parser.add_argument('-as','--a2_superblock_size',default=1,type=int) # amplificaton factor superblock size (see below for superblock definition)
+parser.add_argument('-rf','--run_flag',default=1,type=int) # If set to 0, script will print commands to terminal rather than running them
 args = parser.parse_args()
 
 min_run_index = int(args.min_run_index)
