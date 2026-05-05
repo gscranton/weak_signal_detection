@@ -14,7 +14,7 @@ import random
 import argparse
 
 parser = argparse.ArgumentParser()
-# run index is the number of the column in the noise data file. 
+# run index is the number of the column in the noise data file. This was done because different columns represent different sensors or data collection runs.
 parser.add_argument('-rl','--min_run_index',default=1,type=int) 
 parser.add_argument('-ru','--max_run_index',default=13,type=int)
 parser.add_argument('-d','--data_folder_num',default=1,type=int) # Data folder num is essentially the "title" for this parameter set
