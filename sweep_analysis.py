@@ -22,26 +22,26 @@ import os
 import h5py
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-d','--data_folder_num',default=1,type=int) #22
-parser.add_argument('-r','--run_num',default=1,type=int)
-parser.add_argument('-p','--plot_block',action='store_true')
-parser.add_argument('-snf','--custom_samp_num_flag',action='store_true')
-parser.add_argument('-sn','--samp_num',default=5000,type=int)
-parser.add_argument('-ss','--samp_start',default=20000,type=int) # 120000
-parser.add_argument('-f','--frequency',default=0.2,type=float) # 15.0
-parser.add_argument('-dt','--del_t_ff',default=0.004,type=float)
-parser.add_argument('-ds','--downsample_factor',default=1,type=int)
-parser.add_argument('-pmx','--plt_max',default=1000,type=int)
-parser.add_argument('-pmn','--plt_min',default=0,type=int)
-parser.add_argument('-ps','--plot_spectra_flag',action='store_true')
-parser.add_argument('-pss','--plot_spectra_with_signal_flag',action='store_true')
-parser.add_argument('-sp','--save_plots_flag',action='store_true')
-parser.add_argument('-x2m','--x2_marker_flag',action='store_true')
-parser.add_argument('-x2f','--x2_frequency',default=15.625)
-parser.add_argument('-rf','--root_folder',default="./") # "./" or "Z:\gr075391\A2_sweep_2\\"
-parser.add_argument('-srd','--save_result_data',action='store_true')
-parser.add_argument('-tel','--t0_num_exclude_list',nargs='+',default='None')
-parser.add_argument('-rdc','--real_detection_coefficient_flag',default=0)
+parser.add_argument('-d','--data_folder_num',default=1,type=int) # data folder num, just as in launch_sweeps
+parser.add_argument('-r','--run_num',default=1,type=int) # run num, column of noise file
+parser.add_argument('-p','--plot_block',action='store_true') # if -p argument is made, plots will stay open when script is run from command line
+parser.add_argument('-snf','--custom_samp_num_flag',action='store_true') # if using this option, it will override loading the detection coefficient stored in the files, and calculate the detection coefficient from scratch, using the number of sampling points specified in -sn
+parser.add_argument('-sn','--samp_num',default=5000,type=int) # number of sampling points per sample if using -snf
+parser.add_argument('-ss','--samp_start',default=20000,type=int) # sampling point to start at if using -snf
+parser.add_argument('-f','--frequency',default=0.2,type=float) # frequency in hertz for detection coefficient if using -snf
+parser.add_argument('-dt','--del_t_ff',default=0.004,type=float) # timestep for noise data
+parser.add_argument('-ds','--downsample_factor',default=1,type=int) # If > 1, downsample the number of time samplings by this number
+parser.add_argument('-pmx','--plt_max',default=1000,type=int) # max amplification factor index to plot. If > the number of amp factors, plot all.
+parser.add_argument('-pmn','--plt_min',default=0,type=int) # min amplification factor index to plot.
+parser.add_argument('-ps','--plot_spectra_flag',action='store_true') # If set, plots of the spectra of oscillators (no signal case) for each amplification factor and time sampling combintion will be made. These can be saved with save_plots_flag
+parser.add_argument('-pss','--plot_spectra_with_signal_flag',action='store_true') # If set, plots of the spectra of oscillators (case with signal) for each amplification factor and time sampling combintion will be made. These can be saved with save_plots_flag
+parser.add_argument('-sp','--save_plots_flag',action='store_true') # if set, all plots will be saved in figs folder
+parser.add_argument('-x2m','--x2_marker_flag',action='store_true') # if set, an additional type of detection coefficinet will be plotted separately, consisting of the magnitude of the spectrum of the middle oscillator at the detection frequency
+parser.add_argument('-x2f','--x2_frequency',default=15.625) # frequency for x2 detection coefficient
+parser.add_argument('-rf','--root_folder',default="./") # set folder to take data from ( from [root_folder]/data) normally ./
+parser.add_argument('-srd','--save_result_data',action='store_true') # if set, data from python variables in this script will be saved in a hdf file.
+parser.add_argument('-tel','--t0_num_exclude_list',nargs='+',default='None') # takes a list of time sampling indices to exclude from calculation.  Normally leave this blank. This is meant for cases when there are anomalously high values.
+parser.add_argument('-rdc','--real_detection_coefficient_flag',default=0) # if set, the real part of the oscillator spectrum at the detection frequency will be used instead of the absolute value. This was an experiment, there is not a known use case where this is preferable.
 #parser.add_argument('-eut','--exclude_upper_threshold',default=0)
 parser.set_defaults(plot_block=False,custom_samp_num_flag=False,plot_spectra_flag=False,\
     plot_spectra_with_signal_flag=False,x2_marker_flag=False,save_result_data=False,save_plots_flag=False) # custom_samp_num_flag=False x2_marker_flag=False
