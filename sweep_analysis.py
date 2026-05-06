@@ -3,9 +3,14 @@ exec(open("sweep_analysis.py").read())
 
 Example commands:
 
+A "normal" script call:
 python sweep_analysis.py -p -sp -srd -d 1 -r 1
 
+A script call with custom sample number used:
 python sweep_analysis.py -p -sp -srd -snf -sn 5000 -ss 20000 -d 1 -r 1
+
+A script call that saves plots of oscillator spectra:
+python sweep_analysis.py -sp -srd -snf -ps -pss -sn 5000 -ss 20000 -d 1 -r 1
 """
 
 import numpy as np
